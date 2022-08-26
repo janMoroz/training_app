@@ -1,28 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:training_app_hive/pages/welcome_page.dart';
+import 'package:training_app_hive/pages/workout_list_page.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   // Этот виджет является корнем вашего приложения.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My training application',
-      theme: ThemeData(primarySwatch: Colors.deepPurple
-          // Это тема вашего приложения.
-
-          // Попробуйте запустить ваше приложение с помощью "flutter run". Вы увидите
-          // приложение имеет синюю панель инструментов. Затем, не выходя из приложения, попробуйте
-          // изменение основного образца ниже на Colors.green, а затем вызов
-          // "горячая перезагрузка" (нажмите "r" в консоли, где вы запустили "flutter run",
-          // или просто сохраните изменения в «горячей перезагрузке» во Flutter IDE).
-          // Обратите внимание, что счетчик не обнулился; приложение
-          // не перезапускается.        primarySwatch: Colors.deepPurple,
-          ),
-      home: const WelcomePage(),
+    return MaterialApp.router(
+      routeInformationProvider: _router.routeInformationProvider,
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
     );
+    // return MaterialApp(
+    //   title: 'My training application',
+    //   theme: ThemeData(primarySwatch: Colors.deepPurple
+    //       // Это тема вашего приложения.
+
+    //       // Попробуйте запустить ваше приложение с помощью "flutter run". Вы увидите
+    //       // приложение имеет синюю панель инструментов. Затем, не выходя из приложения, попробуйте
+    //       // изменение основного образца ниже на Colors.green, а затем вызов
+    //       // "горячая перезагрузка" (нажмите "r" в консоли, где вы запустили "flutter run",
+    //       // или просто сохраните изменения в «горячей перезагрузке» во Flutter IDE).
+    //       // Обратите внимание, что счетчик не обнулился; приложение
+    //       // не перезапускается.        primarySwatch: Colors.deepPurple,
+    //       ),
+    //   home: const WelcomePage(),
+    // );
   }
+
+  final GoRouter _router = GoRouter(
+    initialLocation: '/welcome-page',
+    routes: <GoRoute>[
+      GoRoute(
+        path: '/welcome-page',
+        builder: (context, state) => const WelcomePage(),
+      ),
+      GoRoute(
+        path: '/workout-list',
+        builder: (context, state) => const WorkoutListPage(),
+      ),
+    ],
+  );
 }
 
 class MyHomePage extends StatefulWidget {

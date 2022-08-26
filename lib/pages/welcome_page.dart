@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -14,7 +15,8 @@ class WelcomePage extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 elevation: 10, minimumSize: const Size.fromHeight(40)),
             onPressed: () {
-              print('use app!');
+              final router = GoRouter.of(context);
+              router.go('/workout-list');
             },
             child: const Text('Use app!'),
           ),

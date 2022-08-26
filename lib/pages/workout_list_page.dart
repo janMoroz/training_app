@@ -5,8 +5,10 @@ class WorkoutListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('here is the lists of workouts'),
+    return const Scaffold(
+      body: Center(
+        child: Text('here is the lists of workouts'),
+      ),
     );
   }
 }

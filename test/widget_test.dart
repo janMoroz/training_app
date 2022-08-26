@@ -4,7 +4,7 @@ import 'package:training_app_hive/my_app.dart';
 
 void main() {
   testWidgets('Welcome page view test', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp());
 
     expect(find.text('Use app!'), findsOneWidget);
 
