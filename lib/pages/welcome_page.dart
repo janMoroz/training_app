@@ -7,18 +7,35 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-          child: ElevatedButton(
-            key: const Key('inputToApp'),
-            style: ElevatedButton.styleFrom(
-                elevation: 10, minimumSize: const Size.fromHeight(40)),
-            onPressed: () {
-              final router = GoRouter.of(context);
-              router.go('/workout-list');
-            },
-            child: const Text('Use app!'),
+      backgroundColor: Colors.grey,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Center(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/fond.jpeg'),
+                  fit: BoxFit.fill,
+                  // alignment: Alignment.center
+                ),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    key: const Key('inputToApp'),
+                    style: ElevatedButton.styleFrom(
+                        elevation: 10, minimumSize: const Size.fromHeight(40)),
+                    onPressed: () {
+                      final router = GoRouter.of(context);
+                      router.go('/workout-list');
+                    },
+                    child: const Text('Use app!'),
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),
