@@ -20,9 +20,14 @@ class WelcomePage extends StatelessWidget {
                   // alignment: Alignment.center
                 ),
               ),
-              child: Center(
+              child: Align(
+                alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.only(
+                    bottom: 20,
+                    left: 16,
+                    right: 16,
+                  ),
                   child: ElevatedButton(
                     key: const Key('inputToApp'),
                     style: ElevatedButton.styleFrom(
@@ -31,7 +36,11 @@ class WelcomePage extends StatelessWidget {
                       final router = GoRouter.of(context);
                       router.go('/workout-list');
                     },
-                    child: const Text('Use app!'),
+                    child: const Text(
+                      'Use app!',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
                   ),
                 ),
               ),
