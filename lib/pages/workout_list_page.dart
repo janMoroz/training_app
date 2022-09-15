@@ -16,12 +16,7 @@ class _WorkoutListPageState extends State<WorkoutListPage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blueGrey.shade300,
-          leading: TextButton(
-            onPressed: () {},
-            child: const Text(''),
-          ),
-          leadingWidth: 90,
-          title: const Text(''),
+          title: const Text('Workout_app_hive'),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 14),
