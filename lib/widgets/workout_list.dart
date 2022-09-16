@@ -35,45 +35,14 @@ class _WorkoutListState extends State<WorkoutList> {
                 child: Center(child: Text('Список тренировок пуст'))),
           );
         } else {
-          return _buildNotExpanded(context, index);
+          return _workoutCard(context, index);
         }
       },
       itemCount: workout.isEmpty ? 1 : workout.length,
     );
   }
 
-  Widget _buildExpanded(BuildContext context, int index) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              InkWell(
-                  child: const Text('Упражнение: '),
-                  onTap: () => setState(() {
-                        _expanded = false;
-                      })),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: const [
-              Text('Упражнение'),
-              SizedBox(width: 4),
-              Text('Подходы'),
-              SizedBox(width: 4),
-              Text('Повторы'),
-              SizedBox(width: 4),
-              Text('Отдых'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNotExpanded(BuildContext context, index) {
+  Widget _workoutCard(BuildContext context, index) {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Card(
@@ -82,7 +51,7 @@ class _WorkoutListState extends State<WorkoutList> {
           children: <Widget>[
             ListTile(
               leading: IconButton(
-                onPressed: () => _showExpandedWorkout(context, index),
+                onPressed: () => _showDetailsdWorkout(context, index),
                 icon: const Icon(
                   Icons.expand_circle_down,
                   size: 30,
@@ -100,15 +69,207 @@ class _WorkoutListState extends State<WorkoutList> {
     );
   }
 
-  _showExpandedWorkout(BuildContext context, int index) {
+  _showDetailsdWorkout(BuildContext context, int index) {
     showDialog(
       context: context,
       builder: (context) {
         return SimpleDialog(
-          title: Text(
-            'Тренировка: ${workout[index]}',
-            style: const TextStyle(fontSize: 14),
+          title: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Тренировка: ${workout[index]}',
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+              IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.check_box_outlined))
+            ],
           ),
+          children: [
+            SimpleDialogOption(
+              child: Text('Дата тренировки: ${dateWorkout[index]}'),
+            ),
+            SimpleDialogOption(
+              child: Column(
+                children: [
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Упражнение: 1'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Подходов: 5'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Повторений: 15'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SimpleDialogOption(
+              child: Column(
+                children: [
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Упражнение: 1'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Подходов: 5'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Повторений: 15'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SimpleDialogOption(
+              child: Column(
+                children: [
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Упражнение: 2'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Подходов: 15'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Повторений: 15'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SimpleDialogOption(
+              child: Column(
+                children: [
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Упражнение: 3'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Подходов: 10'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Повторений: 15'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SimpleDialogOption(
+              child: Column(
+                children: [
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Упражнение: 4'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Подходов: 5'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Повторений: 10'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SimpleDialogOption(
+              child: Column(
+                children: [
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Упражнение: 5'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Подходов: 5'),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Text('Повторений: 10'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         );
       },
     );
