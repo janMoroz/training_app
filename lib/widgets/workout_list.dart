@@ -21,7 +21,6 @@ class _WorkoutListState extends State<WorkoutList> {
     '07.10.2022'
   ];
 
-  bool _expanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +81,7 @@ class _WorkoutListState extends State<WorkoutList> {
                   style: const TextStyle(fontSize: 14),
                 ),
               ),
-              IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.check_box_outlined))
+              IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.check_box_outlined))
             ],
           ),
           children: [
