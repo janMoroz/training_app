@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class WorkoutList extends StatefulWidget {
   const WorkoutList({Key? key}) : super(key: key);
@@ -20,7 +21,12 @@ class _WorkoutListState extends State<WorkoutList> {
     '05.10.2022',
     '07.10.2022'
   ];
+  @override
+  void dispose() {
+    Hive.close();
 
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +87,9 @@ class _WorkoutListState extends State<WorkoutList> {
                   style: const TextStyle(fontSize: 14),
                 ),
               ),
-              IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.check_box_outlined))
+              IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.check_box_outlined))
             ],
           ),
           children: [
