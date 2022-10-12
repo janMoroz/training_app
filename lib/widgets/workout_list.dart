@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models/workout.dart';
 
 class WorkoutList extends StatefulWidget {
   const WorkoutList({Key? key}) : super(key: key);
@@ -9,6 +11,9 @@ class WorkoutList extends StatefulWidget {
 }
 
 class _WorkoutListState extends State<WorkoutList> {
+//final box = Box<Workout>;
+//Workout res = box.getAt(index)!;
+
   List<String> workout = <String>[
     'Workout 1',
     'Workout 2',
@@ -30,24 +35,72 @@ class _WorkoutListState extends State<WorkoutList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        if (workout.isEmpty) {
-          return const Padding(
-            padding: EdgeInsets.only(top: 40),
-            child: SizedBox(
-                height: 50,
-                child: Center(child: Text('Список тренировок пуст'))),
+    // return ListView.builder(
+    //   itemBuilder: (BuildContext context, int index) {
+    //     if (workout.isEmpty) {
+    //       return const Padding(
+    //         padding: EdgeInsets.only(top: 40),
+    //         child: SizedBox(
+    //             height: 50,
+    //             child: Center(child: Text('Список тренировок пуст'))),
+    //       );
+    //     } else {
+    //       return _workoutCard(context, index);
+    //     }
+    //   },
+    //   itemCount: workout.isEmpty ? 1 : workout.length,
+    // );
+
+    return ValueListenableBuilder(
+      valueListenable: Hive.box<Workout>('workouts').listenable(),
+      builder: (context, Box<Workout> box, __) {
+        if (box.values.isEmpty) {
+          return const Center(
+            child: Text('Workouts not found'),
           );
-        } else {
-          return _workoutCard(context, index);
         }
+        return ListView.builder(
+          itemCount: box.values.length,
+          itemBuilder: (context, index) {
+            Workout res = box.getAt(index)!;
+            return Padding(
+              padding: const EdgeInsets.all(4),
+              child: Card(
+                elevation: 4,
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      leading: IconButton(
+                        onPressed: () => _showDetailsdWorkout(context, index),
+                        icon: const Icon(
+                          Icons.expand_circle_down,
+                          size: 30,
+                        ),
+                      ),
+                      title: Text(
+                        'Название тренировки: ${res.nameWorkout}',
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      subtitle: Text('Дата тренировки: ${res.dateWorkout}'),
+                      trailing: res.complete
+                          ? const Icon(Icons.check_box)
+                          : const Icon(Icons.check_box_outline_blank),
+                      onTap: () {
+                        res.complete = !res.complete;
+                        res.save();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
       },
-      itemCount: workout.isEmpty ? 1 : workout.length,
     );
   }
 
-  Widget _workoutCard(BuildContext context, index) {
+  Widget _workoutCard(context, index) {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Card(
