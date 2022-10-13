@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:training_app_hive/pages/create_workout_page.dart';
 import 'package:training_app_hive/pages/welcome_page.dart';
 import 'package:training_app_hive/pages/workout_list_page.dart';
 
@@ -41,6 +42,12 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/workout-list',
         builder: (context, state) => const WorkoutListPage(),
+        routes: [
+          GoRoute(
+            path: 'create-workout',
+            builder: ((context, state) => const CreateWorkoutPage()),
+          ),
+        ],
       ),
     ],
   );

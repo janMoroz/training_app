@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 part 'workout.g.dart';
 
 @HiveType(typeId: 0)
-class Workout {
+class Workout extends HiveObject{
   @HiveField(0)
   bool complete;
 

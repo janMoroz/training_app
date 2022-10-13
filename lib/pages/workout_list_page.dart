@@ -35,8 +35,8 @@ class _WorkoutListPageState extends State<WorkoutListPage> {
         body: const WorkoutList(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // final router = GoRouter.of(context);
-            // router.go('/create-workout');
+            final router = GoRouter.of(context);
+            router.go('${router.location}/create-workout');
           },
           backgroundColor: Colors.deepPurple,
           child: const Icon(Icons.fitness_center),
