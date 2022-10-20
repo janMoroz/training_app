@@ -13,7 +13,6 @@ class WorkoutCreate extends StatefulWidget {
 class _WorkoutCreateState extends State<WorkoutCreate> {
   late String name;
   DateTime date = DateTime.now();
-  //late String date;
   late String text;
 
   @override
@@ -30,20 +29,15 @@ class _WorkoutCreateState extends State<WorkoutCreate> {
                 });
               },
               decoration: const InputDecoration(
+                label: Text('Название тренировки'),
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
             TextFormField(
               key: const Key('date'),
-              // onChanged: (value) {
-              //   setState(() {
-              //     final now = DateTime.now();
-              //     value = now.toString();
-              //     date = value;
-              //   });
-              //},
               decoration: const InputDecoration(
+                label: Text('Дата тренировки'),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -56,6 +50,7 @@ class _WorkoutCreateState extends State<WorkoutCreate> {
                 });
               },
               decoration: const InputDecoration(
+                label: Text('Текст тренировки'),
                 border: OutlineInputBorder(),
               ),
             ),
