@@ -36,35 +36,55 @@ class _WorkoutListState extends State<WorkoutList> {
             final dateWorkout =
                 DateFormat('yyyy.MM.dd').format(res.dateWorkout);
 
-            return Padding(
-              padding: const EdgeInsets.all(4),
-              child: Card(
-                elevation: 4,
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      leading: IconButton(
-                        onPressed:
-                            () {}, //_showDetailsdWorkout(context, index),
-                        icon: const Icon(
-                          Icons.expand_circle_down,
-                          size: 30,
-                        ),
+            return Dismissible(
+              key: UniqueKey(),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) => res.delete(),
+              background: Container(
+                color: Colors.red.shade400,
+                child: Row(
+                  children: [
+                    Expanded(child: Container()),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 16),
+                      child: Icon(
+                        Icons.delete_forever,
+                        size: 40,
                       ),
-                      title: Text(
-                        'Название тренировки: ${res.nameWorkout}',
-                        style: const TextStyle(fontSize: 14),
-                      ),
-                      subtitle: Text('Дата тренировки: $dateWorkout'),
-                      trailing: res.complete
-                          ? const Icon(Icons.check_box)
-                          : const Icon(Icons.check_box_outline_blank),
-                      onTap: () {
-                        res.complete = !res.complete;
-                        res.save();
-                      },
                     ),
                   ],
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: Card(
+                  elevation: 4,
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        leading: IconButton(
+                          onPressed:
+                              () {}, //_showDetailsdWorkout(context, index),
+                          icon: const Icon(
+                            Icons.expand_circle_down,
+                            size: 30,
+                          ),
+                        ),
+                        title: Text(
+                          'Название тренировки: ${res.nameWorkout}',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        subtitle: Text('Дата тренировки: $dateWorkout'),
+                        trailing: res.complete
+                            ? const Icon(Icons.check_box)
+                            : const Icon(Icons.check_box_outline_blank),
+                        onTap: () {
+                          res.complete = !res.complete;
+                          res.save();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
