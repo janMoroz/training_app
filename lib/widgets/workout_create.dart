@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../models/workout.dart';
 
@@ -12,7 +13,7 @@ class WorkoutCreate extends StatefulWidget {
 
 class _WorkoutCreateState extends State<WorkoutCreate> {
   late String name;
-  DateTime date = DateTime.now();
+  late String date;
   late String text;
 
   @override
@@ -36,6 +37,12 @@ class _WorkoutCreateState extends State<WorkoutCreate> {
             const SizedBox(height: 16),
             TextFormField(
               key: const Key('date'),
+              keyboardType: TextInputType.datetime,
+              onChanged: (value) {
+                setState(() {
+                  date = value;
+                });
+              },
               decoration: const InputDecoration(
                 label: Text('Дата тренировки'),
                 border: OutlineInputBorder(),
@@ -71,9 +78,10 @@ class _WorkoutCreateState extends State<WorkoutCreate> {
 
   void _saveWorkout() {
     Box<Workout> contactsBox = Hive.box('workouts');
+    final parsedDate = DateFormat('yyyy.MM.dd').parse(date);
     contactsBox.add(Workout(
       nameWorkout: name,
-      dateWorkout: date,
+      dateWorkout: parsedDate,
       textWorkout: text,
     ));
     Navigator.of(context).pop();
