@@ -15,6 +15,18 @@ class _WorkoutCreateState extends State<WorkoutCreate> {
   late String name;
   late String date;
   late String text;
+  final TextEditingController _dateController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _dateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +49,21 @@ class _WorkoutCreateState extends State<WorkoutCreate> {
             const SizedBox(height: 16),
             TextFormField(
               key: const Key('date'),
-              keyboardType: TextInputType.datetime,
-              onChanged: (value) {
+              controller: _dateController,
+              onTap: () async {
+                DateTime? datePicked = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2022),
+                  lastDate: DateTime(2027),
+                );
+                date = DateFormat('yyyy.MM.dd').format(datePicked!);
                 setState(() {
-                  date = value;
+                  _dateController.text = date;
                 });
               },
+              readOnly: true,
+              keyboardType: TextInputType.datetime,
               decoration: const InputDecoration(
                 label: Text('Дата тренировки'),
                 border: OutlineInputBorder(),

@@ -63,8 +63,7 @@ class _WorkoutListState extends State<WorkoutList> {
                     children: <Widget>[
                       ListTile(
                         leading: IconButton(
-                          onPressed:
-                              () {}, //_showDetailsdWorkout(context, index),
+                          onPressed: () {},
                           icon: const Icon(
                             Icons.expand_circle_down,
                             size: 30,
