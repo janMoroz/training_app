@@ -12,6 +12,8 @@ class WorkoutList extends StatefulWidget {
 }
 
 class _WorkoutListState extends State<WorkoutList> {
+  bool _expanded = false;
+
   @override
   void dispose() {
     Hive.close();
@@ -57,34 +59,82 @@ class _WorkoutListState extends State<WorkoutList> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(4),
-                child: Card(
-                  elevation: 4,
-                  child: Column(
-                    children: <Widget>[
-                      ListTile(
-                        leading: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.expand_circle_down,
-                            size: 30,
-                          ),
+                child: _expanded
+                    ? Card(
+                        elevation: 4,
+                        child: Column(
+                          children: <Widget>[
+                            ListTile(
+                              leading: IconButton(
+                                onPressed: () =>
+                                    setState(() => _expanded = !_expanded),
+                                icon: const Icon(
+                                  Icons.expand_less,
+                                  size: 30,
+                                ),
+                              ),
+                              title: Text(
+                                'Название тренировки: ${res.nameWorkout}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              subtitle: Text('Дата тренировки: $dateWorkout'),
+                              trailing: res.complete
+                                  ? const Icon(Icons.check_box)
+                                  : const Icon(Icons.check_box_outline_blank),
+                              onTap: () {
+                                res.complete = !res.complete;
+                                res.save();
+                              },
+                            ),
+                            Row(
+                              children: [
+                                const Text(
+                                  'Текст тренировки:',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(res.textWorkout),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        title: Text(
-                          'Название тренировки: ${res.nameWorkout}',
-                          style: const TextStyle(fontSize: 14),
+                      )
+                    : Card(
+                        elevation: 4,
+                        child: Column(
+                          children: <Widget>[
+                            ListTile(
+                              leading: IconButton(
+                                onPressed: () =>
+                                    setState(() => _expanded = !_expanded),
+                                icon: const Icon(
+                                  Icons.expand_more,
+                                  size: 30,
+                                ),
+                              ),
+                              title: Text(
+                                'Название тренировки: ${res.nameWorkout}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              subtitle: Text('Дата тренировки: $dateWorkout'),
+                              trailing: res.complete
+                                  ? const Icon(Icons.check_box)
+                                  : const Icon(Icons.check_box_outline_blank),
+                              onTap: () {
+                                res.complete = !res.complete;
+                                res.save();
+                              },
+                            ),
+                          ],
                         ),
-                        subtitle: Text('Дата тренировки: $dateWorkout'),
-                        trailing: res.complete
-                            ? const Icon(Icons.check_box)
-                            : const Icon(Icons.check_box_outline_blank),
-                        onTap: () {
-                          res.complete = !res.complete;
-                          res.save();
-                        },
                       ),
-                    ],
-                  ),
-                ),
               ),
             );
           },
@@ -92,239 +142,4 @@ class _WorkoutListState extends State<WorkoutList> {
       },
     );
   }
-
-  // Widget _workoutCard(context, index) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(4),
-  //     child: Card(
-  //       elevation: 4,
-  //       child: Column(
-  //         children: <Widget>[
-  //           ListTile(
-  //             leading: IconButton(
-  //               onPressed: () => _showDetailsdWorkout(context, index),
-  //               icon: const Icon(
-  //                 Icons.expand_circle_down,
-  //                 size: 30,
-  //               ),
-  //             ),
-  //             title: Text(
-  //               'Название тренировки: ${workout[index]}',
-  //               style: const TextStyle(fontSize: 14),
-  //             ),
-  //             subtitle: Text('Дата тренировки: ${dateWorkout[index]}'),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // _showDetailsdWorkout(BuildContext context, int index) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return SimpleDialog(
-  //         title: Row(
-  //           children: [
-  //             Expanded(
-  //               child: Text(
-  //                 'Тренировка: $dateWorkout',
-  //                 style: const TextStyle(fontSize: 14),
-  //               ),
-  //             ),
-  //             IconButton(
-  //                 onPressed: () => Navigator.pop(context),
-  //                 icon: const Icon(Icons.check_box_outlined))
-  //           ],
-  //         ),
-  //         children: [
-  //           SimpleDialogOption(
-  //             child: Text('Дата тренировки: ${dateWorkout[index]}'),
-  //           ),
-  //           SimpleDialogOption(
-  //             child: Column(
-  //               children: [
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Упражнение: 1'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Подходов: 5'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Повторений: 15'),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //           SimpleDialogOption(
-  //             child: Column(
-  //               children: [
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Упражнение: 1'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Подходов: 5'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Повторений: 15'),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //           SimpleDialogOption(
-  //             child: Column(
-  //               children: [
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Упражнение: 2'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Подходов: 15'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Повторений: 15'),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //           SimpleDialogOption(
-  //             child: Column(
-  //               children: [
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Упражнение: 3'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Подходов: 10'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Повторений: 15'),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //           SimpleDialogOption(
-  //             child: Column(
-  //               children: [
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Упражнение: 4'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Подходов: 5'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Повторений: 10'),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //           SimpleDialogOption(
-  //             child: Column(
-  //               children: [
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Упражнение: 5'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Подходов: 5'),
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   width: 300,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: const Padding(
-  //                     padding: EdgeInsets.all(3.0),
-  //                     child: Text('Повторений: 10'),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 }
