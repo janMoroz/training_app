@@ -1,4 +1,4 @@
-# training_app_hive
+# training_app
 
 A new Flutter project.
 
